@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pinput/pinput.dart';
+import 'package:multi_sender_pinput/multi_sender_pinput/pinput.dart';
 
 void main() {
   testWidgets('Can enter value', (WidgetTester tester) async {
