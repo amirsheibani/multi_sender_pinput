@@ -1,0 +1,30 @@
+name: multi_sender_pinput
+version: 0.0.1
+description: Pin code input (OTP) text field, iOS SMS autofill, Android SMS autofill One Time Code, Password, Passcode, Captcha, Security, Coupon, Wowcher, 2FA, Two step verification
+homepage: https://github.com/amirsheibani/multi_sender_pinput
+repository: https://github.com/amirsheibani/multi_sender_pinput
+issue_tracker: https://github.com/amirsheibani/multi_sender_pinput/issues
+topics:
+  - otp
+  - pin-input
+  - pin-code
+  - passcode
+  - sms-autofill
+
+
+
+environment:
+  sdk: '>=2.15.0 <4.0.0'
+  flutter: ">=3.7.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  smart_auth: ^2.0.0
+  universal_platform: ^1.0.0+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
