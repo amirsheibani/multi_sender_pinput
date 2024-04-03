@@ -1,5 +1,6 @@
 part of '../pinput.dart';
 
+
 /// The mode which determines the Pinput validation method
 enum PinputAutovalidateMode {
   /// No auto validation will occur.
