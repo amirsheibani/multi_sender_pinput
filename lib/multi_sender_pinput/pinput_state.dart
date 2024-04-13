@@ -11,6 +11,8 @@ T? _ambiguate<T>(T? value) => value;
 class _PinputState extends State<Pinput>
     with RestorationMixin, WidgetsBindingObserver, _PinputUtilsMixin
     implements TextSelectionGestureDetectorBuilderDelegate, AutofillClient {
+
+
   @override
   late bool forcePressEnabled;
 
@@ -71,6 +73,15 @@ class _PinputState extends State<Pinput>
 
   bool get _completed => pin.length == widget.length;
 
+
+  hasFocusForDone() {
+    if (hasFocus) {
+      KeyboardOverlay.showOverlay(context);
+    } else {
+      KeyboardOverlay.removeOverlay();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -84,6 +95,7 @@ class _PinputState extends State<Pinput>
       widget.controller!.addListener(_handleTextEditingControllerChanges);
     }
     effectiveFocusNode.canRequestFocus = isEnabled && widget.useNativeKeyboard;
+    _focusNode?.addListener(hasFocusForDone);
     _maybeInitSmartAuth();
     _maybeCheckClipboard();
     // https://github.com/Tkko/Flutter_Pinput/issues/89
@@ -230,6 +242,7 @@ class _PinputState extends State<Pinput>
   @override
   void dispose() {
     widget.controller?.removeListener(_handleTextEditingControllerChanges);
+    _focusNode?.removeListener(hasFocusForDone);
     _focusNode?.dispose();
     _controller?.dispose();
     _smartAuth?.removeSmsListener();
@@ -588,3 +601,5 @@ class _PinputState extends State<Pinput>
         .copyWith(autofillConfiguration: autofillConfiguration);
   }
 }
+
+
