@@ -1,3 +1,7 @@
+## 0.0.4
+
+* TODO: Read Autofill from Sms directly (Permission needed).
+
 ## 0.0.3
 
 * TODO: add done button on iosKeyBord.

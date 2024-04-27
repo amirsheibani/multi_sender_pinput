@@ -84,28 +84,20 @@ class _PinputExampleState extends State<PinputExample> {
               length: 6,
               androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
               listenForMultipleSmsOnAndroid: true,
-              senderPhoneNumber: ['+989122331488', '+989398216784'],
+              senderPhoneNumber: const ['+989385371961', '+989398216784'],
               textInputAction: TextInputAction.done,
               showCursor: false,
               keyboardType: TextInputType.number,
               animationCurve: Curves.ease,
               animationDuration: const Duration(milliseconds: 300),
               pinAnimationType: PinAnimationType.slide,
-
+              smsPermissionStatus: (value) {
+                debugPrint('Sms Permission Status: $value');
+              },
+              readFromSms: true,
               onChanged: (value) {
                   print(value);
               },
-              /*onCompleted: (v) => widget.callbackWhenFilled(true, v),
-                    onChanged: (value) {
-                      if (value == null) {
-                        widget.callbackWhenFilled(false, '');
-                      }else{
-                        widget.callbackWhenFilled(true, value);
-                    }if (value.length < 6)
-                        widget.callbackWhenFilled(false, '');
-                      else
-                        widget.callbackWhenFilled(true, value);
-                    },*/
             ),
           ),
           TextButton(

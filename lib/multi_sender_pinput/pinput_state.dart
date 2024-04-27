@@ -105,13 +105,35 @@ class _PinputState extends State<Pinput>
   /// Android Autofill
   void _maybeInitSmartAuth() async {
     final isAndroid = UniversalPlatform.isAndroid;
-    final isAutofillEnabled =
-        widget.androidSmsAutofillMethod != AndroidSmsAutofillMethod.none;
+    final isAutofillEnabled = widget.androidSmsAutofillMethod != AndroidSmsAutofillMethod.none;
 
     if (isAndroid && isAutofillEnabled) {
-      _smartAuth = SmartAuth();
-      _maybePrintAppSignature();
-      _listenForSmsCode();
+      if (widget.readFromSms) {
+        final bool smsPerResult = await Permission.sms.request().isGranted;
+        widget.smsPermissionStatus?.call(smsPerResult);
+        if (smsPerResult) {
+          final plugin = Readsms();
+          plugin.read();
+          plugin.smsStream.listen((sms) {
+            for (var number in widget.senderPhoneNumber ?? []) {
+              if (number == sms.sender) {
+                final intInStr = RegExp(r'\d+');
+                final result = intInStr.allMatches(sms.body).map((m) => m.group(0)).toSet();
+                final code = result.firstWhere((element) => element?.length == 6, orElse: () => null);
+                if (code != null) {
+                  debugPrint('Sms OTP Code: $code');
+                  _effectiveController.setText(code);
+                }
+                break;
+              }
+            }
+          });
+        }
+      } else {
+        _smartAuth = SmartAuth();
+        _maybePrintAppSignature();
+        _listenForSmsCode();
+      }
     }
   }
 

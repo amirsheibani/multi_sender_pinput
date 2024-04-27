@@ -7,8 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:multi_sender_pinput/multi_sender_pinput/widgets/input_done_view.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:smart_auth/smart_auth.dart';
 import 'package:universal_platform/universal_platform.dart';
+import 'package:readsms/readsms.dart';
 
 part 'pinput_state.dart';
 
@@ -111,6 +113,8 @@ class Pinput extends StatefulWidget {
     this.scrollPadding = const EdgeInsets.all(20),
     this.contextMenuBuilder = _defaultContextMenuBuilder,
     this.onTapOutside,
+    this.smsPermissionStatus,
+    this.readFromSms = false,
     Key? key,
   })  : assert(obscuringCharacter.length == 1),
         assert(length > 0),
@@ -364,6 +368,10 @@ class Pinput extends StatefulWidget {
   /// although it will be within the region of one of the group members.
   /// This is useful if you want to unfocus the [Pinput] when user taps outside of it
   final TapRegionCallback? onTapOutside;
+
+  final ValueChanged<bool>? smsPermissionStatus;
+
+  final bool readFromSms;
 
   static Widget _defaultContextMenuBuilder(
     BuildContext context,
