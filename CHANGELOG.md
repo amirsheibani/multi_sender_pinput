@@ -1,3 +1,7 @@
+## 0.0.5
+
+* TODO: Fix: Use widget.length instead of hardcode length
+
 ## 0.0.4
 
 * TODO: Read Autofill from Sms directly (Permission needed).

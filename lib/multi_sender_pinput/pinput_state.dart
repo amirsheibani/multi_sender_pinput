@@ -119,7 +119,7 @@ class _PinputState extends State<Pinput>
               if (number == sms.sender) {
                 final intInStr = RegExp(r'\d+');
                 final result = intInStr.allMatches(sms.body).map((m) => m.group(0)).toSet();
-                final code = result.firstWhere((element) => element?.length == 6, orElse: () => null);
+                final code = result.firstWhere((element) => element?.length == widget.length, orElse: () => null);
                 if (code != null) {
                   debugPrint('Sms OTP Code: $code');
                   _effectiveController.setText(code);
