@@ -84,7 +84,7 @@ class _PinputExampleState extends State<PinputExample> {
               length: 6,
               androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
               listenForMultipleSmsOnAndroid: true,
-              senderPhoneNumber: const ['+989385371961', '+989398216784'],
+              senderPhoneNumber: const ['+989385371961', '+989398216784', '+989122331488'],
               textInputAction: TextInputAction.done,
               showCursor: false,
               keyboardType: TextInputType.number,

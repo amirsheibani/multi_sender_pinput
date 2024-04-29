@@ -1,3 +1,7 @@
+## 0.0.7
+
+* TODO: Fix: Remove extra files - add plugin configuration
+
 ## 0.0.6
 
 * TODO: Fix: Get permission sms
