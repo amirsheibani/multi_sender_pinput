@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="top.amirdeveloper.multi_sender_pinput">
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+</manifest>
