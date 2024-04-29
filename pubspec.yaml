@@ -1,5 +1,5 @@
 name: multi_sender_pinput
-version: 0.0.8
+version: 0.0.9
 description: Pin code input (OTP) text field, iOS SMS autofill, Android SMS autofill One Time Code, Password, Passcode, Captcha, Security, Coupon, Wowcher, 2FA, Two step verification
 homepage: https://github.com/amirsheibani/multi_sender_pinput
 repository: https://github.com/amirsheibani/multi_sender_pinput

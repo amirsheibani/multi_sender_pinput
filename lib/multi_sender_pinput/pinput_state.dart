@@ -369,6 +369,7 @@ class _PinputState extends State<Pinput>
               }
             },
             decoration: widget.simpleTextFieldDecoration,
+            readOnly: widget.readOnly,
           )
         : isDense
             ? IntrinsicWidth(child: _buildPinput())
