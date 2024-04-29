@@ -357,7 +357,22 @@ class _PinputState extends State<Pinput>
     assert(debugCheckHasDirectionality(context));
     final isDense = widget.mainAxisAlignment == MainAxisAlignment.center;
 
-    return isDense ? IntrinsicWidth(child: _buildPinput()) : _buildPinput();
+    return widget.showSimpleTextField
+        ? TextFormField(
+            controller: _effectiveController,
+            focusNode: _focusNode,
+            enabled: isEnabled,
+            onChanged: (value) {
+              widget.onChanged?.call(value);
+              if (value.length == widget.length) {
+                widget.onCompleted?.call(value);
+              }
+            },
+            decoration: widget.simpleTextFieldDecoration,
+          )
+        : isDense
+            ? IntrinsicWidth(child: _buildPinput())
+            : _buildPinput();
   }
 
   Widget _buildPinput() {

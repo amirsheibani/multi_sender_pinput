@@ -94,9 +94,13 @@ class _PinputExampleState extends State<PinputExample> {
               smsPermissionStatus: (value) {
                 debugPrint('Sms Permission Status: $value');
               },
+              showSimpleTextField: true,
               readFromSms: true,
               onChanged: (value) {
                   print(value);
+              },
+              onCompleted: (value) {
+                print(value);
               },
             ),
           ),

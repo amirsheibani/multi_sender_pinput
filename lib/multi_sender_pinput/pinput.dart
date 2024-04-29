@@ -115,6 +115,8 @@ class Pinput extends StatefulWidget {
     this.onTapOutside,
     this.smsPermissionStatus,
     this.readFromSms = false,
+    this.showSimpleTextField = false,
+    this.simpleTextFieldDecoration = const InputDecoration(),
     Key? key,
   })  : assert(obscuringCharacter.length == 1),
         assert(length > 0),
@@ -372,6 +374,10 @@ class Pinput extends StatefulWidget {
   final ValueChanged<bool>? smsPermissionStatus;
 
   final bool readFromSms;
+
+  final bool showSimpleTextField;
+
+  final InputDecoration? simpleTextFieldDecoration;
 
   static Widget _defaultContextMenuBuilder(
     BuildContext context,

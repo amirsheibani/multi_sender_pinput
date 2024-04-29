@@ -1,14 +1,18 @@
+## 0.0.8
+
+* TODO: Add Simple TextField
+
 ## 0.0.7
 
-* TODO: Fix: Remove extra files - add plugin configuration
+* TODO: Fix Remove extra files - add plugin configuration
 
 ## 0.0.6
 
-* TODO: Fix: Get permission sms
+* TODO: Fix Get permission sms
 
 ## 0.0.5
 
-* TODO: Fix: Use widget. Length instead of hardcode length
+* TODO: Fix Use widget. Length instead of hardcode length
 
 ## 0.0.4
 
@@ -16,11 +20,11 @@
 
 ## 0.0.3
 
-* TODO: add done button on iosKeyBord.
+* TODO: Add done button on iosKeyBord.
 
 ## 0.0.2
 
-* TODO: fix bugs.
+* TODO: Fix bugs.
 
 ## 0.0.1
 
