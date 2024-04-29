@@ -1,6 +1,10 @@
+## 0.0.6
+
+* TODO: Fix: Get permission sms
+
 ## 0.0.5
 
-* TODO: Fix: Use widget.length instead of hardcode length
+* TODO: Fix: Use widget. Length instead of hardcode length
 
 ## 0.0.4
 
