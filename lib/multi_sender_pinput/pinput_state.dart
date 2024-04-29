@@ -370,6 +370,7 @@ class _PinputState extends State<Pinput>
             },
             decoration: widget.simpleTextFieldDecoration,
             readOnly: widget.readOnly,
+      keyboardType: TextInputType.number,
           )
         : isDense
             ? IntrinsicWidth(child: _buildPinput())
