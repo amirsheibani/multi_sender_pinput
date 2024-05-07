@@ -97,10 +97,10 @@ class _PinputExampleState extends State<PinputExample> {
               showSimpleTextField: true,
               readFromSms: true,
               onChanged: (value) {
-                  print(value);
+                  print('onChanged: $value');
               },
               onCompleted: (value) {
-                print(value);
+                print('onCompleted: $value');
               },
             ),
           ),
