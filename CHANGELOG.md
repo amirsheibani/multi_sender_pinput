@@ -1,3 +1,7 @@
+## 0.0.10
+
+* TODO: Fix autofill detect otp number
+
 ## 0.0.9
 
 * TODO: Fix Simple TextField readonly parameter
