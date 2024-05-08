@@ -30,6 +30,8 @@ part 'utils/pinput_utils_mixin.dart';
 
 part 'widgets/_pinput_selection_gesture_detector_builder.dart';
 
+typedef AutoFillValidation = bool Function(String line);
+
 /// Flutter package to create easily customizable Pin code input field, that your designers can't even draw in Figma 🤭
 ///
 /// ## Features:
@@ -117,6 +119,7 @@ class Pinput extends StatefulWidget {
     this.readFromSms = false,
     this.showSimpleTextField = false,
     this.simpleTextFieldDecoration = const InputDecoration(),
+    this.autoFillValidation,
     Key? key,
   })  : assert(obscuringCharacter.length == 1),
         assert(length > 0),
@@ -378,6 +381,8 @@ class Pinput extends StatefulWidget {
   final bool showSimpleTextField;
 
   final InputDecoration? simpleTextFieldDecoration;
+
+  final AutoFillValidation? autoFillValidation;
 
   static Widget _defaultContextMenuBuilder(
     BuildContext context,

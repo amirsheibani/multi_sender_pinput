@@ -72,7 +72,7 @@ class _PinputExampleState extends State<PinputExample> {
           Directionality(
             // Specify direction if desired
             textDirection: TextDirection.ltr,
-            child:Pinput(
+            child: Pinput(
               defaultPinTheme: defaultPinTheme,
               scrollPadding: const EdgeInsets.all(56),
               focusNode: FocusNode(),
@@ -101,6 +101,10 @@ class _PinputExampleState extends State<PinputExample> {
               },
               onCompleted: (value) {
                 print('onCompleted: $value');
+              },
+              autoFillValidation: (line) {
+                return (line.contains('رمز') || line.contains('بلیت') || line.contains('بليت')) &&
+                    !line.contains('زمان');
               },
             ),
           ),

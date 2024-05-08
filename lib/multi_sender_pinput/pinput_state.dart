@@ -106,31 +106,34 @@ class _PinputState extends State<Pinput>
         if (smsPerResult) {
           final plugin = Readsms();
           plugin.read();
-          plugin.smsStream.listen((sms) {
-            print("im called!");
-            print(sms.body);
-            for (var number in widget.senderPhoneNumber ?? []) {
-              if (number == sms.sender) {
-                final intInStr = RegExp(r'\d+');
-                final line = sms.body.split('\n').firstWhere(
-                      (element) =>
-                          (element.contains('رمز') || element.contains('بلیت') || element.contains('بليت')) &&
-                          !element.contains('زمان'),
-                      orElse: () => '',
-                    );
-                final code = intInStr
-                    .allMatches(line)
-                    .map((e) => e.group(0))
-                    .toSet()
-                    .firstWhere((element) => element?.length == widget.length, orElse: () => null);
-                if (code != null) {
-                  debugPrint('Sms OTP Code: $code');
-                  _effectiveController.setText(code);
+          plugin.smsStream.listen(
+            (sms) {
+              for (var number in widget.senderPhoneNumber ?? []) {
+                if (number == sms.sender) {
+                  final intInStr = RegExp(r'\d+');
+                  String lookupText = '';
+                  if (widget.autoFillValidation != null) {
+                    lookupText = sms.body.split('\n').firstWhere(
+                          widget.autoFillValidation!,
+                          orElse: () => '',
+                        );
+                  } else {
+                    lookupText = sms.body;
+                  }
+                  final code = intInStr
+                      .allMatches(lookupText)
+                      .map((e) => e.group(0))
+                      .toSet()
+                      .firstWhere((element) => element?.length == widget.length, orElse: () => null);
+                  if (code != null) {
+                    debugPrint('Sms OTP Code: $code');
+                    _effectiveController.setText(code);
+                  }
+                  break;
                 }
-                break;
               }
-            }
-          });
+            },
+          );
         }
       } else {
         _smartAuth = SmartAuth();
