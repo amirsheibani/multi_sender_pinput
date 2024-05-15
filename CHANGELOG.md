@@ -1,3 +1,10 @@
+## 0.0.13
+
+* TODO: Fix focusNode on iOS
+
+## 0.0.12
+
+* TODO: Fix autofill detect otp number web
 ## 0.0.11
 
 * TODO: Fix autofill detect otp number web

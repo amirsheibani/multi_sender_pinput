@@ -68,11 +68,14 @@ class _PinputState extends State<Pinput>
   bool get _completed => pin.length == widget.length;
 
   hasFocusForDone() {
-    if (hasFocus) {
-      KeyboardOverlay.showOverlay(context);
-    } else {
-      KeyboardOverlay.removeOverlay();
+    if(widget.focusNode != null){
+      if (widget.focusNode!.hasFocus) {
+        KeyboardOverlay.showOverlay(context);
+      } else {
+        KeyboardOverlay.removeOverlay();
+      }
     }
+
   }
 
   @override
