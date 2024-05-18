@@ -1,3 +1,7 @@
+## 0.0.14
+
+* TODO: Fix obscureText option to text form field
+
 ## 0.0.13
 
 * TODO: Fix focusNode on iOS
