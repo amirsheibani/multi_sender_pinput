@@ -67,6 +67,8 @@ class _PinputState extends State<Pinput>
 
   bool get _completed => pin.length == widget.length;
 
+  final StringBuffer _stringBuffer = StringBuffer();
+
   hasFocusForDone() {
     if(widget.focusNode != null){
       if (widget.focusNode!.hasFocus) {
@@ -113,15 +115,16 @@ class _PinputState extends State<Pinput>
             (sms) {
               for (var number in widget.senderPhoneNumber ?? []) {
                 if (number == sms.sender) {
+                  _stringBuffer.write(sms.body);
                   final intInStr = RegExp(r'\d+');
                   String lookupText = '';
                   if (widget.autoFillValidation != null) {
-                    lookupText = sms.body.split('\n').firstWhere(
+                    lookupText = _stringBuffer.toString().split('\n').lastWhere(
                           widget.autoFillValidation!,
                           orElse: () => '',
                         );
                   } else {
-                    lookupText = sms.body;
+                    lookupText = _stringBuffer.toString();
                   }
                   final code = intInStr
                       .allMatches(lookupText)
@@ -131,8 +134,9 @@ class _PinputState extends State<Pinput>
                   if (code != null) {
                     debugPrint('Sms OTP Code: $code');
                     _effectiveController.setText(code);
+                    _stringBuffer.clear();
+                    break;
                   }
-                  break;
                 }
               }
             },

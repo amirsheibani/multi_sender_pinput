@@ -1,3 +1,7 @@
+## 0.0.15
+
+* TODO: Fix auto fill when pin is separated in two parts
+
 ## 0.0.14
 
 * TODO: Fix obscureText option to text form field
