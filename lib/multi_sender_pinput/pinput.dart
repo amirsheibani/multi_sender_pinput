@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_open_app_settings/flutter_open_app_settings.dart';
 import 'package:multi_sender_pinput/multi_sender_pinput/widgets/input_done_view.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smart_auth/smart_auth.dart';
@@ -116,6 +117,7 @@ class Pinput extends StatefulWidget {
     this.contextMenuBuilder = _defaultContextMenuBuilder,
     this.onTapOutside,
     this.smsPermissionStatus,
+    this.showPermissionDialog,
     this.readFromSms = false,
     this.showSimpleTextField = false,
     this.simpleTextFieldDecoration = const InputDecoration(),
@@ -375,6 +377,7 @@ class Pinput extends StatefulWidget {
   final TapRegionCallback? onTapOutside;
 
   final ValueChanged<bool>? smsPermissionStatus;
+  final AsyncCallback? showPermissionDialog;
 
   final bool readFromSms;
 

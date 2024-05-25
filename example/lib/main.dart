@@ -107,6 +107,16 @@ class _PinputExampleState extends State<PinputExample> {
                 return (line.contains('رمز') || line.contains('بلیت') || line.contains('بليت')) &&
                     !line.contains('زمان');
               },
+              showPermissionDialog:(){
+                return showDialog<void>(context: context, builder: (BuildContext context) { return  Container(
+                  color: Colors.white,
+                  height: 300,
+                  width: 300,
+                  child: Center(
+                    child: Text('Test'),
+                  ),
+                ); });
+              },
             ),
           ),
           TextButton(

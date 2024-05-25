@@ -1,6 +1,10 @@
+## 0.0.16
+
+* TODO: Fix Permission request for SMS
+
 ## 0.0.15
 
-* TODO: Fix auto fill when pin is separated in two parts
+* TODO: Fix autofill when pin is separated in two parts
 
 ## 0.0.14
 

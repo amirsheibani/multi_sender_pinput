@@ -106,7 +106,23 @@ class _PinputState extends State<Pinput>
 
     if (isAndroid && isAutofillEnabled) {
       if (widget.readFromSms) {
-        final bool smsPerResult = await Permission.sms.request().isGranted;
+         final resultRequest = await Permission.sms.request();
+         switch(resultRequest) {
+           case PermissionStatus.denied:
+           case PermissionStatus.restricted:
+           case PermissionStatus.limited:
+           case PermissionStatus.permanentlyDenied:
+             await widget.showPermissionDialog?.call();
+             FlutterOpenAppSettings.openAppsSettings(settingsCode: SettingsCode.APP_SETTINGS,
+                 onCompletion: (){
+
+                 });
+             break;
+           case PermissionStatus.provisional:
+           case PermissionStatus.granted:
+             break;
+         }
+         final bool smsPerResult = await Permission.sms.request().isGranted;
         widget.smsPermissionStatus?.call(smsPerResult);
         if (smsPerResult) {
           final plugin = Readsms();
