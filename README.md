@@ -1,4 +1,4 @@
-# EasyUseCamera
+# Multi Sender Pinput
 # 🌍 About Project
 This package for use camera take picture & video for all platform
 
