@@ -2,5 +2,3 @@
 library pinput;
 
 export 'multi_sender_pinput/pinput.dart';
-
-export 'package:smart_auth/smart_auth.dart';

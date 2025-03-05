@@ -9,7 +9,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_open_app_settings/flutter_open_app_settings.dart';
 import 'package:multi_sender_pinput/multi_sender_pinput/widgets/input_done_view.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:smart_auth/smart_auth.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:readsms/readsms.dart';
 
@@ -118,7 +117,6 @@ class Pinput extends StatefulWidget {
     this.onTapOutside,
     this.smsPermissionStatus,
     this.showPermissionDialog,
-    this.readFromSms = false,
     this.showSimpleTextField = false,
     this.simpleTextFieldDecoration = const InputDecoration(),
     this.autoFillValidation,
@@ -378,8 +376,6 @@ class Pinput extends StatefulWidget {
 
   final ValueChanged<bool>? smsPermissionStatus;
   final AsyncCallback? showPermissionDialog;
-
-  final bool readFromSms;
 
   final bool showSimpleTextField;
 

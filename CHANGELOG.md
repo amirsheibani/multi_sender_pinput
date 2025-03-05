@@ -1,3 +1,7 @@
+## 0.0.17
+
+* TODO: remove smart auth
+
 ## 0.0.16
 
 * TODO: Fix Permission request for SMS

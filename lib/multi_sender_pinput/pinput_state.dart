@@ -32,7 +32,6 @@ class _PinputState extends State<Pinput>
   FocusNode? _focusNode;
   bool _isHovering = false;
   String? _validatorErrorText;
-  SmartAuth? _smartAuth;
 
   String? get _errorText => widget.errorText ?? _validatorErrorText;
 
@@ -105,110 +104,59 @@ class _PinputState extends State<Pinput>
     final isAutofillEnabled = widget.androidSmsAutofillMethod != AndroidSmsAutofillMethod.none;
 
     if (isAndroid && isAutofillEnabled) {
-      if (widget.readFromSms) {
-         final resultRequest = await Permission.sms.request();
-         switch(resultRequest) {
-           case PermissionStatus.denied:
-           case PermissionStatus.restricted:
-           case PermissionStatus.limited:
-           case PermissionStatus.permanentlyDenied:
-             await widget.showPermissionDialog?.call();
-             FlutterOpenAppSettings.openAppsSettings(settingsCode: SettingsCode.APP_SETTINGS,
-                 onCompletion: (){
+      final resultRequest = await Permission.sms.request();
+      switch(resultRequest) {
+        case PermissionStatus.denied:
+        case PermissionStatus.restricted:
+        case PermissionStatus.limited:
+        case PermissionStatus.permanentlyDenied:
+          await widget.showPermissionDialog?.call();
+          FlutterOpenAppSettings.openAppsSettings(settingsCode: SettingsCode.APP_SETTINGS,
+              onCompletion: (){
 
-                 });
-             break;
-           case PermissionStatus.provisional:
-           case PermissionStatus.granted:
-             break;
-         }
-         final bool smsPerResult = await Permission.sms.request().isGranted;
-        widget.smsPermissionStatus?.call(smsPerResult);
-        if (smsPerResult) {
-          final plugin = Readsms();
-          plugin.read();
-          plugin.smsStream.listen(
-            (sms) {
-              for (var number in widget.senderPhoneNumber ?? []) {
-                if (number == sms.sender) {
-                  _stringBuffer.write(sms.body);
-                  final intInStr = RegExp(r'\d+');
-                  String lookupText = '';
-                  if (widget.autoFillValidation != null) {
-                    lookupText = _stringBuffer.toString().split('\n').lastWhere(
-                          widget.autoFillValidation!,
-                          orElse: () => '',
-                        );
-                  } else {
-                    lookupText = _stringBuffer.toString();
-                  }
-                  final code = intInStr
-                      .allMatches(lookupText)
-                      .map((e) => e.group(0))
-                      .toSet()
-                      .firstWhere((element) => element?.length == widget.length, orElse: () => null);
-                  if (code != null) {
-                    debugPrint('Sms OTP Code: $code');
-                    _effectiveController.setText(code);
-                    _stringBuffer.clear();
-                    break;
-                  }
+              });
+          break;
+        case PermissionStatus.provisional:
+        case PermissionStatus.granted:
+          break;
+      }
+      final bool smsPerResult = await Permission.sms.request().isGranted;
+      widget.smsPermissionStatus?.call(smsPerResult);
+      if (smsPerResult) {
+        final plugin = Readsms();
+        plugin.read();
+        plugin.smsStream.listen(
+              (sms) {
+            for (var number in widget.senderPhoneNumber ?? []) {
+              if (number == sms.sender) {
+                _stringBuffer.write(sms.body);
+                final intInStr = RegExp(r'\d+');
+                String lookupText = '';
+                if (widget.autoFillValidation != null) {
+                  lookupText = _stringBuffer.toString().split('\n').lastWhere(
+                    widget.autoFillValidation!,
+                    orElse: () => '',
+                  );
+                } else {
+                  lookupText = _stringBuffer.toString();
+                }
+                final code = intInStr
+                    .allMatches(lookupText)
+                    .map((e) => e.group(0))
+                    .toSet()
+                    .firstWhere((element) => element?.length == widget.length, orElse: () => null);
+                if (code != null) {
+                  debugPrint('Sms OTP Code: $code');
+                  _effectiveController.setText(code);
+                  _stringBuffer.clear();
+                  break;
                 }
               }
-            },
-          );
-        }
-      } else {
-        _smartAuth = SmartAuth();
-        _maybePrintAppSignature();
-        _listenForSmsCode();
+            }
+          },
+        );
       }
     }
-  }
-
-  void _maybePrintAppSignature() async {
-    if (widget.androidSmsAutofillMethod == AndroidSmsAutofillMethod.smsRetrieverApi) {
-      final res = await _smartAuth!.getAppSignature();
-      debugPrint('Pinput: App Signature for SMS Retriever API Is: $res');
-    }
-  }
-
-  void _listenForSmsCode() async {
-    final useUserConsentApi = widget.androidSmsAutofillMethod == AndroidSmsAutofillMethod.smsUserConsentApi;
-
-    SmsCodeResult? smsCodeResult;
-    if ((widget.senderPhoneNumber?.length ?? 0) <= 1) {
-      smsCodeResult = await _smartAuth!.getSmsCode(
-        useUserConsentApi: useUserConsentApi,
-        matcher: widget.smsCodeMatcher,
-        senderPhoneNumber: widget.senderPhoneNumber?.first,
-      );
-
-      if (smsCodeResult.succeed && smsCodeResult.codeFound && smsCodeResult.code!.length == widget.length) {
-        _effectiveController.setText(smsCodeResult.code!);
-      }
-      if (widget.listenForMultipleSmsOnAndroid) {
-        _listenForSmsCode();
-      }
-    } else {
-      for (var i in (widget.senderPhoneNumber ?? [])) {
-        _smartAuth!
-            .getSmsCode(
-          useUserConsentApi: useUserConsentApi,
-          matcher: widget.smsCodeMatcher,
-          senderPhoneNumber: i,
-        )
-            .then((value) {
-          if (value.succeed && value.codeFound && value.code!.length == widget.length) {
-            _effectiveController.setText(value.code!);
-          }
-          if (widget.listenForMultipleSmsOnAndroid) {
-            _listenForSmsCode();
-          }
-        });
-      }
-    }
-    // Listen for multiple sms codes
   }
 
   void _handleTextEditingControllerChanges() {
@@ -293,7 +241,6 @@ class _PinputState extends State<Pinput>
     _focusNode?.removeListener(hasFocusForDone);
     _focusNode?.dispose();
     _controller?.dispose();
-    _smartAuth?.removeSmsListener();
     // https://github.com/Tkko/Flutter_Pinput/issues/89
     _ambiguate(WidgetsBinding.instance)!.removeObserver(this);
     super.dispose();
